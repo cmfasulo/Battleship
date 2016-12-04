@@ -1,0 +1,26 @@
+.torpedo {
+  background-color: black;
+  color: red;
+ }
+
+ .col-sm-2 {
+   background-color: #e7239c;
+   height: 100%;
+ }
+
+table {
+  width: 500px;
+  height: 500px;
+  background-image: url("img/florenceflannel.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0 auto;
+  text-align: center;
+  border: 4px solid black;
+}
+
+td {
+  text-align: center;
+  border: 2px solid black;
+  width: 47px;
+}
