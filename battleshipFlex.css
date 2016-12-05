@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+}
+
+h1, h2 {
+   text-align: center;
+ }
+
+table {
+  width: 70%;
+  /*width: 500px;
+  height: 500px;*/
+  /*background-image: url("img/florenceflannel.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;*/
+  margin: auto;
+  text-align: center;
+  /*border: 4px solid black;*/
+}
+
+td {
+  border: 2px solid black;
+  width: 10%;
+  position: relative;
+  cursor: crosshair; pointer;
+}
+
+td:after {
+  content: '';
+  display: block;
+  margin-top: 100%;
+}
+
+td .content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#container, #main, #left {
+  display: flex;
+  justify-content: center;
+}
+
+#container {
+  min-height: 100%;
+  width: 100%;
+  align-items: stretch;
+  flex-flow: row wrap;
+  border: 4px solid black;
+}
+
+#left, #right {
+  min-width: 300px;
+  min-height: 600px;
+}
+
+#main {
+  min-width: 600px;
+  /*min-height: 600px;*/
+}
+
+#left {
+  order: 0;
+  flex: 1;
+  flex-flow: column wrap;
+  align-items: stretch;
+}
+
+#main {
+  order: 1;
+  flex: 2;
+  flex-flow: column wrap;
+  align-items: stretch;
+}
+
+#right {
+  order: 2;
+  flex: 1;
+  background-color: green;
+}
+
+#main-top {
+  order: 0;
+  background-color: blue;
+  flex: 3;
+  align-items: center;
+}
+
+#main-bottom {
+  order: 1;
+  background-color: orange;
+  flex: 1;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+#left-top {
+  order: 0;
+  background-color: purple;
+  flex: 1;
+}
+
+#left-bottom {
+  order: 1;
+  background-color: pink;
+  flex: 1;
+}
+
+#reset {
+  margin: 20px auto;
+  display: block;
+}
+
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+ .col-sm-2 {
+   background-color: #5d5d5d;
+   height: 100%;
+   margin: 0;
+   padding: 0;
+ }
+
+ .miss {
+   background-color: red;
+  }
+
+  .hit {
+    background-color: gray;
+    background-image: url('img/torpedo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+   }
+
+  .torpedoImg {
+    max-height: 50px;
+    min-height: 25px;
+  }

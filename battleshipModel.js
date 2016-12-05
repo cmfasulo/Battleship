@@ -1,13 +1,10 @@
 var board = [[], [], [], [], [], [], [], [], [], []];
 var ship = 1;
-//creates counter to track torpedos used
-var counter = 0;
+var torpedoCount = 25;
 
 //creates a function to be called when a user clicks a square
 function playerClick() {
-//increments the counter each time a torpedo is used
-  counter++;
-  console.log("counter: " + counter);
+  torpedoCount--;
 }
 
 function shipLocations() {

@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+
+    <script src="battleshipModel.js"></script>
+    <script src="battleshipController.js"></script>
+    <link type="text/css" rel="stylesheet" href="battleshipFlex.css"/>
+
+    <title>Battleship</title>
+
+  </head>
+  <body>
+    <div id="container">
+      <div id="main">
+        <div id="main-top">
+          <table id="board"></table>
+        </div>
+
+        <div id="main-bottom">
+          <h3 id="feedback">Torpedos Remaining: <span id="numTorpedos">25</span></h3>
+          <div id="torpedoShelf"></div>
+        </div>
+      </div>
+
+      <div id="left">
+        <div id="left-top">
+          <h1>Battleship</h1>
+          <h2>"Ships You Can Battle With"</h2>
+        </div>
+        <div id="left-bottom">
+          <input type="button" value="Reset/New Game" id="reset"/>
+        </div>
+      </div>
+
+      <div id="right">
+      </div>
+
+    </div>
+  </body>
+</html>

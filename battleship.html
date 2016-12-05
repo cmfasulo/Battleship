@@ -12,10 +12,13 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <script src="battleshipModel.js"></script>
-    <script src="bottleshipController.js"></script>
+    <script src="battleshipController.js"></script>
     <link type="text/css" rel="stylesheet" href="battleship.css"/>
+
     <title>Battleship</title>
+
   </head>
   <body>
     <div class="container-fluid">
@@ -23,9 +26,13 @@
       <div class="col-sm-8">
         <h1>Battleship</h1>
         <h2>"Ships You Can Battle With"</h2>
+
         <table id="board"></table>
-        <p id="feedback"></p>
+
+        <h3 id="feedback">Torpedos Remaining: <span id="numTorpedos">25</span></h3>
+
         <input type="button" value="Reset/New Game" id="reset"/>
+        
       </div>
       <div class="col-sm-2"></div>
     </div>

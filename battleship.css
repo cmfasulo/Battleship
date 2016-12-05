@@ -1,19 +1,13 @@
-.torpedo {
-  background-color: black;
-  color: red;
- }
-
- .col-sm-2 {
-   background-color: #e7239c;
-   height: 100%;
+h1, h2 {
+   text-align: center;
  }
 
 table {
   width: 500px;
   height: 500px;
-  background-image: url("img/florenceflannel.jpg");
+  /*background-image: url("img/florenceflannel.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover;*/
   margin: 0 auto;
   text-align: center;
   border: 4px solid black;
@@ -24,3 +18,25 @@ td {
   border: 2px solid black;
   width: 47px;
 }
+
+#reset {
+  margin: 20px auto;
+  display: block;
+}
+
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+ .col-sm-2 {
+   background-color: #5d5d5d;
+   height: 100%;
+   margin: 0;
+   padding: 0;
+ }
+
+ .torpedo {
+   background-color: red;
+   color: black;
+  }
