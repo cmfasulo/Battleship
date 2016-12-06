@@ -1,39 +1,129 @@
-var board = [[], [], [], [], [], [], [], [], [], []];
-var ship = 1;
+//Quantity and lengths of ships
+var carriers = 1;
+var carrierLength = 5;
+
+var battleships = 2;
+var battleshipLength = 4;
+
+var cruisers = 2;
+var cruiserLength = 3;
+
+var destroyers = 2;
+var destroyerLength = 2;
+
+var submarines = 1;
+var submarineLength = 1;
+
 var torpedoCount = 25;
+
+var rows = 10;
+var columns = 10;
+var board = createBoard(rows, columns, "O") //createBoard(rows, columns, fillCharacter)
 
 //creates a function to be called when a user clicks a square
 function playerClick() {
   torpedoCount--;
 }
 
-function shipLocations() {
-  //populates entire previously empty board with X in all squares
-  for (var i = 0; i < 10; i++) {
-    for (var j = 0; j < 10; j++) {
-      board[i][j] = "X";
+function createBoard(rows, columns, fillCharacter) {
+  var matrix = [];
+  for (var i = 0; i < rows; i++) {
+    var rowArray = [];
+    for (var j = 0; j < columns; j++) {
+      rowArray.push(fillCharacter);
     }
+    matrix.push(rowArray);
   }
+  return matrix;
+}
 
-  //parse through entire board to check for number of ships (ship = 1)
-  var numShips = 0;
+function placeShips() {
+  addShip(carriers, carrierLength);
+  addShip(battleships, battleshipLength);
+  addShip(cruisers, cruiserLength);
+  addShip(destroyers, destroyerLength);
+  addShip(submarines, submarineLength);
+}
 
-  while (numShips < 4) {
-    numShips = 0;
-    for (var i = 0; i < board.length; i++) {
-      for (var j = 0; j < board[i].length; j++) {
-        if (board[i][j] === ship)
-        numShips += 1;
+function addShip(ship, shipLength) {
+  //(x,y) --> origin (0,0) is top left cell
+  var rowStart = 0;
+  var columnStart = 0;
+  var validPlacement = false;
+
+  shipNumLoop:
+  for (var x = 0; x < ship; x++) {
+    shipPlacementLoop:
+    while (validPlacement === false) {
+      var orientation = Math.round(Math.random()); //0 = horizontal, 1 = vertical
+
+      if (orientation === 0) { //horizontal placement
+        rowStart = Math.floor(Math.random()*(rows));
+        columnStart = Math.floor(Math.random()*(columns - shipLength));
+
+        var endRow = rowStart + shipLength;
+        var endColumn = columnStart + shipLength;
+        var backRow = rowStart - 1;
+        var forwardRow = rowStart + 1;
+        var backColumn = columnStart - 1;
+        var forwardColumn = columnStart + 1;
+
+        //The loop below ensures there are no ships currently in the proposed path. If a ship is detected already in a spot in the proposed path, the validHorizontalloop will be broken and validPlacement remains false. The do/while loop will run again with new orientation and placement.
+        validHorizontalLoop:
+        for (var j = columnStart; j < endColumn; j++) {
+          if (board[rowStart][j] === "O" &&
+              (board[rowStart][backColumn] === "O" || board[rowStart][backColumn] == null) &&
+              (board[rowStart][endColumn] === "O" || board[rowStart][endColumn] == null) &&
+              (board[backRow][j] === "O" || board[backRow][j] == null) &&
+              (board[forwardRow][j] === "O" || board[forwardRow][j] == null)) {
+            validPlacement = true; //current spot IS NOT occupied
+          } else {
+            validPlacement = false; //current spot IS occupied
+            break validHorizontalLoop;
+          }
+        }
+
+        //place ship on board if it passes the spot-checking loop above
+        if (validPlacement == true) {
+          for (var j = columnStart; j < (columnStart + shipLength); j++) {
+            board[rowStart][j] = shipLength.toString() + ":" + x.toString();
+            console.log()
+          }
+        }
+      }
+      else { //vertical placement
+        rowStart = Math.floor(Math.random()*(rows - shipLength));
+        columnStart = Math.floor(Math.random()*(columns));
+
+        var endRow = rowStart + shipLength;
+        var endColumn = columnStart + shipLength;
+        var backRow = rowStart - 1;
+        var forwardRow = rowStart + 1;
+        var backColumn = columnStart - 1;
+        var forwardColumn = columnStart + 1;
+
+        validVerticalLoop:
+        for (var i = rowStart; i < endRow; i++) {
+          if (board[i][columnStart] === "O"  &&
+          (board[backRow][columnStart] === "O" || board[backRow][columnStart] == null) &&
+          (board[(endRow)][columnStart] === "O" || board[(endRow)][columnStart] == null) &&
+          (board[i][backColumn] === "O" || board[i][backColumn] == null) &&
+          (board[i][forwardColumn] === "O" || board[i][forwardColumn] == null)) {
+            validPlacement = true; //current spot IS NOT occupied
+          } else {
+            validPlacement = false; //current spot IS occupied
+            break validVerticalLoop;
+          }
+        }
+
+        if (validPlacement == true) {
+          for (var i = rowStart; i < (rowStart + shipLength); i++) {
+            board[i][columnStart] = shipLength.toString() + ":" + x.toString();
+          }
+        }
       }
     }
-
-    row = Math.floor(Math.random()*10);
-    column = Math.floor(Math.random()*10);
-
-    if (board[row][column] != ship) {
-      board[row][column] = ship;
-    }
-    console.log(numShips);
+    validPlacement = false;
   }
 }
 

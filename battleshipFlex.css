@@ -22,7 +22,7 @@ td {
   border: 2px solid black;
   width: 10%;
   position: relative;
-  cursor: crosshair; pointer;
+  cursor: url("img/crosshairs.png") 25 25, crosshair;
 }
 
 td:after {
@@ -111,7 +111,7 @@ td .content {
   flex: 1;
 }
 
-#reset {
+#show, #reset {
   margin: 20px auto;
   display: block;
 }
