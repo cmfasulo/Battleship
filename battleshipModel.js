@@ -46,126 +46,96 @@ function placeShips() {
 }
 
 function addShip(ship, shipLength) {
-  //(x,y) --> origin (0,0) is top left cell
-  var rowStart = 0;
-  var columnStart = 0;
-  var validPlacement = false;
-
-  shipNumLoop:
   for (var x = 0; x < ship; x++) {
-    shipPlacementLoop:
-    while (validPlacement === false) {
+    var validPlacement = false;
+
+    while (!validPlacement) {
       var orientation = Math.round(Math.random()); //0 = horizontal, 1 = vertical
 
-      if (orientation === 0) { //horizontal placement
-        rowStart = Math.floor(Math.random()*(rows));
-        columnStart = Math.floor(Math.random()*(columns - shipLength));
-
-        var endRow = rowStart + shipLength;
-        var endColumn = columnStart + shipLength;
-
-        if (rowStart === 0) {
-          var backRow = rowStart;
-        } else {
-          var backRow = rowStart - 1;
-        }
-
-        if (rowStart === (rows - 1)) {
-          var forwardRow = rowStart;
-        } else {
-          var forwardRow = rowStart + 1;
-        }
-
-        if (columnStart === 0) {
-          var backColumn = columnStart;
-        } else {
-          var backColumn = columnStart - 1;
-        }
-
-        if (columnStart === (columns - 1)) {
-          forwardColumn = columnStart;
-        } else {
-          var forwardColumn = columnStart + 1;
-        }
-
-        //The loop below ensures there are no ships currently in the proposed path. If a ship is detected already in a spot in the proposed path, the validHorizontalloop will be broken and validPlacement remains false. The do/while loop will run again with new orientation and placement.
-        validHorizontalLoop:
-        for (var j = columnStart; j < endColumn; j++) {
-          if (board[rowStart][j] === "O" &&
-              board[rowStart][backColumn] === "O"  &&
-              board[rowStart][endColumn] === "O" &&
-              board[backRow][j] === "O" &&
-              board[forwardRow][j] === "O") {
-            validPlacement = true; //current spot IS NOT occupied
-          } else {
-            validPlacement = false; //current spot IS occupied
-            break validHorizontalLoop;
-          }
-        }
-
-        //place ship on board if it passes the spot-checking loop above
-        if (validPlacement == true) {
-          for (var j = columnStart; j < (columnStart + shipLength); j++) {
-            board[rowStart][j] = shipLength.toString() + ":" + x.toString();
-            console.log()
-          }
-        }
+      if (orientation = 0) {
+        var rowStart = Math.floor(Math.random()*(rows));
+        var columnStart = Math.floor(Math.random()*(columns - shipLength));
+      } else {
+        var rowStart = Math.floor(Math.random()*(rows - shipLength));
+        var columnStart = Math.floor(Math.random()*(columns));
       }
-      else { //vertical placement
-        rowStart = Math.floor(Math.random()*(rows - shipLength));
-        columnStart = Math.floor(Math.random()*(columns));
 
-        var endRow = rowStart + shipLength;
-        var endColumn = columnStart + shipLength;
 
-        if (rowStart === 0) {
-          var backRow = rowStart;
-        } else {
-          var backRow = rowStart - 1;
-        }
+      var rowEnd = rowStart + shipLength;
+      var columnEnd = columnStart + shipLength;
 
-        if (rowStart === (rows - 1)) {
-          var forwardRow = rowStart;
-        } else {
-          var forwardRow = rowStart + 1;
-        }
+      if (rowStart === 0) {
+        var rowBack = rowStart;
+      } else {
+        var rowBack = rowStart - 1;
+      }
 
-        if (columnStart === 0) {
-          var backColumn = columnStart;
-        } else {
-          var backColumn = columnStart - 1;
-        }
+      if (rowStart === (rows - 1)) {
+        var rowForward = rowStart;
+      } else {
+        var rowForward = rowStart + 1;
+      }
 
-        if (columnStart === (columns - 1)) {
-          forwardColumn = columnStart;
-        } else {
-          var forwardColumn = columnStart + 1;
-        }
+      if (columnStart === 0) {
+        var columnBack = columnStart;
+      } else {
+        var columnBack = columnStart - 1;
+      }
 
-        validVerticalLoop:
-        for (var i = rowStart; i < endRow; i++) {
-          if (board[i][columnStart] === "O"  &&
-              board[backRow][columnStart] === "O" &&
-              board[(endRow)][columnStart] === "O" &&
-              board[i][backColumn] === "O" &&
-              board[i][forwardColumn] === "O") {
-            validPlacement = true; //current spot IS NOT occupied
-          } else {
-            validPlacement = false; //current spot IS occupied
-            break validVerticalLoop;
-          }
-        }
+      if (columnStart === (columns - 1)) {
+        columnForward = columnStart;
+      } else {
+        var columnForward = columnStart + 1;
+      }
 
-        if (validPlacement == true) {
-          for (var i = rowStart; i < (rowStart + shipLength); i++) {
-            board[i][columnStart] = shipLength.toString() + ":" + x.toString();
-          }
-        }
+      //The functions below ensure there are no ships currently in the proposed path. If a ship is detected already in a spot in the proposed path, the functions will return false and the while loop will run again with new orientation and placement. If true, the functions will place the ships on the board.
+      if (orientation === 0) {
+        validPlacement = placeHorizontal(shipLength, rowStart, columnStart, rowBack, columnBack, rowForward, columnEnd);
+      } else {
+        validPlacement = placeVertical(shipLength, rowStart, columnStart, rowBack, columnBack, columnForward, rowEnd);
       }
     }
-    validPlacement = false;
   }
 }
+
+function placeHorizontal(shipLength, rowStart, columnStart, rowBack, columnBack, rowForward, columnEnd) {
+  for (var j = columnStart; j < columnEnd; j++) {
+    if (board[rowStart][j] != "O" ||
+        board[rowStart][columnBack] != "O"  ||
+        board[rowStart][columnEnd] != "O" ||
+        board[rowBack][j] != "O" ||
+        board[rowForward][j] != "O") {
+          console.log("placeHorizontal returned false");
+          return false; //current spot is occupied
+    }
+  }
+
+  for (var j = columnStart; j < (columnStart + shipLength); j++) {
+    board[rowStart][j] = shipLength.toString();
+  }
+  console.log("placeHorizontal returned true");
+  return true;
+}
+
+function placeVertical(shipLength, rowStart, columnStart, rowBack, columnBack, columnForward, rowEnd) {
+  for (var i = rowStart; i < rowEnd; i++) {
+    if (board[i][columnStart] != "O"  ||
+        board[rowBack][columnStart] != "O" ||
+        board[rowEnd][columnStart] != "O" ||
+        board[i][columnBack] != "O" ||
+        board[i][columnForward] != "O") {
+          console.log("placeVertical returned false");
+          return false; //current spot is occupied
+    }
+  }
+
+  for (var i = rowStart; i < (rowStart + shipLength); i++) {
+    board[i][columnStart] = shipLength.toString();
+  }
+  console.log("placeVertical returned true");
+  return true;
+}
+
 
 // function checkBoard(position) {
 //   var rowNum = parseInt(position.slice(0,1));
