@@ -15,28 +15,31 @@
   <body>
     <div id="container">
       <div id="main">
-        <div id="main-top">
-          <table id="board"></table>
-        </div>
-
-        <div id="main-bottom">
-          <h3 id="feedback">Torpedos Remaining: <span id="numTorpedos">25</span></h3>
-          <div id="torpedoShelf"></div>
-        </div>
+        <table id="board"></table>
       </div>
 
       <div id="left">
-        <div id="left-top">
+        <div id="battleship">
           <h1>Battleship</h1>
           <h2>"Ships You Can Battle With"</h2>
         </div>
-        <div id="left-bottom">
+        <div id="buttonBank">
           <input type="button" value="Show Ships" id="show"/>
           <input type="button" value="Reset/New Game" id="reset"/>
         </div>
       </div>
 
       <div id="right">
+        <div id="console">
+          <div id="consoleWindow">
+            <h3>Command Terminal</h3>
+            <div id="consoleText"></div>
+          </div>
+        </div>
+        <div id="torpedoBank">
+          <h4 id="feedback">Torpedos Remaining: <span id="numTorpedos">25</span></h4>
+          <div id="torpedoShelf"></div>
+        </div>
       </div>
 
     </div>

@@ -18,7 +18,7 @@ var torpedoCount = 25;
 
 var rows = 10;
 var columns = 10;
-var board = createBoard(rows, columns, "O"); //createBoard(rows, columns, fillCharacter)
+var board = createBoard(rows, columns, 0); //createBoard(rows, columns, fillCharacter)
 
 //creates a function to be called when a user clicks a square
 function playerClick() {
@@ -100,11 +100,11 @@ function addShip(ship, shipLength) {
 
 function placeHorizontal(shipLength, rowStart, columnStart, rowBack, columnBack, rowForward, columnEnd) {
   for (var j = columnStart; j < columnEnd; j++) {
-    if (board[rowStart][j] != "O" ||
-        board[rowStart][columnBack] != "O"  ||
-        board[rowStart][columnEnd] != "O" ||
-        board[rowBack][j] != "O" ||
-        board[rowForward][j] != "O") {
+    if (board[rowStart][j] != 0 ||
+        board[rowStart][columnBack] != 0  ||
+        board[rowStart][columnEnd] != 0 ||
+        board[rowBack][j] != 0 ||
+        board[rowForward][j] != 0) {
           console.log("placeHorizontal returned false");
           return false; //current spot is occupied
     }
@@ -119,34 +119,19 @@ function placeHorizontal(shipLength, rowStart, columnStart, rowBack, columnBack,
 
 function placeVertical(shipLength, rowStart, columnStart, rowBack, columnBack, columnForward, rowEnd) {
   for (var i = rowStart; i < rowEnd; i++) {
-    if (board[i][columnStart] != "O"  ||
-        board[rowBack][columnStart] != "O" ||
-        board[rowEnd][columnStart] != "O" ||
-        board[i][columnBack] != "O" ||
-        board[i][columnForward] != "O") {
+    if (board[i][columnStart] != 0  ||
+        board[rowBack][columnStart] != 0 ||
+        board[rowEnd][columnStart] != 0 ||
+        board[i][columnBack] != 0 ||
+        board[i][columnForward] != 0) {
           console.log("placeVertical returned false");
           return false; //current spot is occupied
     }
   }
 
   for (var i = rowStart; i < (rowStart + shipLength); i++) {
-    board[i][columnStart] = shipLength.toString();
+    board[i][columnStart] = shipLength;
   }
   console.log("placeVertical returned true");
   return true;
 }
-
-
-// function checkBoard(position) {
-//   var rowNum = parseInt(position.slice(0,1));
-//   var colNum = parseInt(position.slice(1,2));
-//   for (var i = 0; i < board.length; i++) {
-//     for (var j = 0; j < board[i].length; j++) {
-//       if (board[rowNum][colNum] === ship) {
-//         return true;
-//       } else {
-//         return false;
-//       }
-//     }
-//   }
-// }

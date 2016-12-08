@@ -3,15 +3,12 @@ $(document).ready(function() {
   placeShips(); //places all ships on "board" in array (battleshipModel.js)
   torpedoShelf(); //add torpedos to "torpedoShelf"
 
-  // var tableString = makeTable();
-  // $("table").append(tableString);
-
   //assigns actions to player's click
   $("td").on("click", function() {
 
     if (torpedoCount > 0) {
       playerClick(); //runs playerClick function from Model
-      $(this).addClass("miss");
+      checkHit(board, $(this).attr('id'));
       $("#numTorpedos").text(torpedoCount);
       torpedoShelf();
       $(this).off();
@@ -41,11 +38,10 @@ $(document).ready(function() {
 
       if (torpedoCount > 0) {
         playerClick(); //runs playerClick function from Model
-        $(this).addClass("miss"); //adds CSS class 'torpedo'
-        $("#numTorpedos").text(torpedoCount); //gives user feedback on torpedo usage
-        $("torpedoShelf").remove("<img src='img/torpedo.png' class='torpedoImg'>");
+        checkHit(board, $(this).attr('id'));
+        $("#numTorpedos").text(torpedoCount);
         torpedoShelf();
-        $(this).off(); //turns off click functionality once a user has clicked on a box
+        $(this).off();
       } else {
         $("#numTorpedos").append(" - SORRY, YOU HAVE LOSSED THIS BATTLE.");
         $("td").off();
@@ -62,9 +58,9 @@ $(document).ready(function() {
 //Creates a function that generates a really long string with entire table HTML
 function makeTable() {
   var tableString = "";
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < rows; i++) {
     tableString += "<tr id='" + i + "'>" //creates opening tag and id for current row
-    for (var j = 0; j < 10; j++) {
+    for (var j = 0; j < columns; j++) {
       tableString += "<td id='" + i + j + "'><div class='content'></div></td>" //adds the current column to the string for the current row; moves onto the next column in the inner "for" loop
     }
     tableString += "</tr>"; //adds a closing tag for the current row; moves onto the next row in the outer "for" loop
@@ -74,17 +70,11 @@ function makeTable() {
 }
 
 function showShips() {
-  $("table").empty();
-
-  var tableString = "";
-  for (var i = 0; i < 10; i++) {
-    tableString += "<tr id='" + i + "'>" //creates opening tag and id for current row
-    for (var j = 0; j < 10; j++) {
-      tableString += "<td id='" + i + j + "'><div class='content'>" + board[i][j] + "</div></td>" //adds the current column to the string for the current row; moves onto the next column in the inner "for" loop
+  for (var i = 0; i < rows; i++) {
+    for (var j = 0; j < columns; j++) {
+      $("#" + i.toString() + j.toString()).text(board[i][j])
     }
-    tableString += "</tr>"; //adds a closing tag for the current row; moves onto the next row in the outer "for" loop
   }
-  $("table").append(tableString);
 }
 
 function torpedoShelf() {
@@ -94,10 +84,14 @@ function torpedoShelf() {
   }
 }
 
-function checkTable(board) {
-  //loop through columns (or w/e)
-  //loop through rows (or w/e)
-  //if (board[row][column] === ship) {
-  //$(this).addClass("something-is-here")
-  //}
+function checkHit(board, id) {
+  var rowNum = parseInt(id.slice(0, 1));
+  var columnNum = parseInt(id.slice(1,2));
+  console.log(parseInt(board[rowNum][columnNum]));
+
+  if (board[rowNum][columnNum] === 0) {
+    $("#" + id).addClass("miss");
+  } else {
+    $("#" + id).addClass("hit");
+  }
 }
