@@ -1,28 +1,48 @@
-h1, h2 {
-   text-align: center;
- }
+h1, h2, h3, h4, input, #consoleText {
+  font-family: 'Press Start 2P', cursive;
+}
 
- h3 {
-   background-color: gray;
-   color: white;
-   margin-top: 0;
- }
+h1 {
+  font-size: 48px;
+  color: #234486;
+  font-variant: small-caps;
+  text-shadow: 4px 4px #000000;
+}
+
+h2 {
+  font-size: 12px;
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px #000000;
+}
+
+h3 {
+  background-color: gray;
+  color: white;
+  margin-top: 0;
+  padding: 10px;
+}
 
 table {
   width: 70%;
   margin: auto;
   text-align: center;
+  table-layout: fixed;
+  background-image: url(img/gridlines.png);
+  background-size: 100% 100%;
+  padding: 3%;
 }
 
-div {
+/*div {
   border: 1px dashed black;
-}
+}*/
 
 td {
   border: 2px solid black;
   width: 10%;
   position: relative;
   cursor: url("img/crosshairs.png") 25 25, crosshair;
+  background-color: rgba(120, 120, 120, 0.5);
 }
 
 td:after {
@@ -40,15 +60,21 @@ td .content {
 }
 
 #container {
-  box-sizing: border-box;
   display: flex;
-  min-height: 100%;
+  height: 100%;
   flex-flow: row wrap;
   border: 4px solid black;
+  background-color: rgba(120, 120, 120, 1);
 }
 
-#main, #battleship, #buttonBank, #torpedoBank {
+#battleship, #torpedoBank {
   background-image: url(img/plateHorizontal.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#buttonBank, #console {
+  background-image: url(img/plateVertical.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -61,7 +87,22 @@ td .content {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url(img/sonar.gif);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-radius: 80px;
 }
+
+/*#coordinates {
+  height: 100%;
+  width: 100%;
+  margin: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(img/gridlines.png);
+  background-size: 100% 100%;
+}*/
 
 #left {
   order: 0;
@@ -76,12 +117,13 @@ td .content {
   flex-grow: 1;
   flex-shrink: 2;
   display: flex;
+  flex-flow: column;
+  justify-content: center;
   align-items: stretch;
-  flex-flow: column nowrap;
 }
 
 #battleship {
-  height: 50%;
+  height: 30%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,7 +131,7 @@ td .content {
 }
 
 #buttonBank {
-  height: 50%;
+  height: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,36 +139,83 @@ td .content {
 }
 
 #console {
-  flex-grow: 2;
-  flex-basis: 70%;
-  background-image: url(img/plateVertical.png);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  height: 70%;
+  padding: 5%;
+  display: flex;
+  align-items: center;
 }
 
 #consoleWindow {
   background-color: black;
-  border: white 2px solid;
-  height: 65%;
-  margin: 5%;
+  border: white 3px solid;
+  height: 80%;
+  border-radius: 5px;
+  font-size: 12px;
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+}
+
+#consoleText {
+  color: #234486;
+  flex-grow: 30;
+  line-height: 150%;
+  padding: 10px;
+}
+
+#str7 {
+
+}
+
+#consoleInput {
+  color: green;
+  background-color: black;
+  width: 100%;
+  border: none;
+  border-top: white 2px solid;
+  padding: 5px;
+  flex-grow: 1;
+}
+
+#consoleInput,
+textarea {
+    font-size: 12px;
+    padding: 5px;
+
+    color: #234486;
+    text-shadow: 0px 0px 0px #000;
+    /*-webkit-text-fill-color: transparent;*/
+}
+
+#consoleInput::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: gray;
+    text-shadow: none;
+    -webkit-text-fill-color: initial;
 }
 
 #torpedoBank {
   text-align: center;
+  height: 30%;
+  padding: 5%;
 }
 
 #torpedoShelf {
-  width: 90%;
   margin: 0 auto;
+  max-height: 80%;
 }
 
 #show, #reset {
+  font-size: 24px;
   margin: 20px auto;
   display: block;
-}
-
-.metal {
-
+  color: #fff;
+  background-color: #234486;
+  padding: 20px;
+  box-shadow: 5px 5px black;
+  border-radius: 5px;
+  cursor: url("img/crosshairs.png") 25 25, crosshair;
 }
 
 .hit {
@@ -141,6 +230,49 @@ td .content {
 }
 
 .torpedoImg {
-  max-height: 50px;
-  /*min-height: 25px;*/
+  max-height: 40px;
+  min-height: 30px;
+}
+
+@-webkit-keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+@-moz-keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+.objblink {
+-webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+
+    -webkit-animation-direction: normal;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: blink;
+    -webkit-animation-timing-function: ease-in-out;
+
+-moz-animation-direction: normal;
+    -moz-animation-duration: 2s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-name: blink;
+    -moz-animation-timing-function: ease-in-out;
 }

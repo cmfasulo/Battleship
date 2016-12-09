@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  initialize();
   makeTable(); //creates a table/board
   placeShips(); //places all ships on "board" in array (battleshipModel.js)
   torpedoShelf(); //add torpedos to "torpedoShelf"
@@ -13,10 +14,26 @@ $(document).ready(function() {
       torpedoShelf();
       $(this).off();
     } else {
-      $("#numTorpedos").append(" - SORRY, YOU HAVE LOSSED THIS BATTLE.");
+      $("#consoleText").append("SORRY, YOU HAVE LOST THIS BATTLE");
       $("td").off();
     }
 
+  });
+
+  $("#consoleInput").keypress(function (e) {
+    if (e.which == 13) {
+      if (torpedoCount > 0) {
+        checkHit(board, $(this).val());
+        $("#numTorpedos").text(torpedoCount);
+        torpedoShelf();
+        $("#" + $(this).val()).off();
+      } else {
+        $("#consoleText").append("SORRY, YOU HAVE LOST THIS BATTLE");
+        $("td").off();
+      }
+
+      $(this).val('');
+    }
   });
 
   $("#show").on("click", function() {
@@ -43,7 +60,7 @@ $(document).ready(function() {
         torpedoShelf();
         $(this).off();
       } else {
-        $("#numTorpedos").append(" - SORRY, YOU HAVE LOSSED THIS BATTLE.");
+        $("#consoleText").append("SORRY, YOU HAVE LOST THIS BATTLE");
         $("td").off();
       }
 
@@ -54,6 +71,24 @@ $(document).ready(function() {
   });
 
 });
+
+function initialize() {
+  $("#str1").toggle();
+  $("#str2").toggle();
+  $("#str3").toggle();
+  $("#str4").toggle();
+  $("#str5").toggle();
+  $("#str6").toggle();
+  $("#str7").toggle();
+
+  $("#str1").delay(1000).fadeToggle(1);
+  $("#str2").delay(2000).fadeToggle(1);
+  $("#str3").delay(3000).fadeToggle(1);
+  $("#str4").delay(4000).fadeToggle(1);
+  $("#str5").delay(5000).fadeToggle(1);
+  $("#str6").delay(6000).fadeToggle(1);
+  $("#str7").delay(7000).fadeToggle(1);
+}
 
 //Creates a function that generates a really long string with entire table HTML
 function makeTable() {
@@ -91,7 +126,9 @@ function checkHit(board, id) {
 
   if (board[rowNum][columnNum] === 0) {
     $("#" + id).addClass("miss");
+    $("#consoleText").append("Sector: " + id + " = MISS<br>");
   } else {
     $("#" + id).addClass("hit");
+    $("#consoleText").append("Sector: " + id + " = HIT<br>");
   }
 }

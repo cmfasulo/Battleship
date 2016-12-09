@@ -5,6 +5,8 @@
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
 
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+
     <script src="battleshipModel.js"></script>
     <script src="battleshipController.js"></script>
     <link type="text/css" rel="stylesheet" href="battleshipFlex.css"/>
@@ -15,7 +17,9 @@
   <body>
     <div id="container">
       <div id="main">
-        <table id="board"></table>
+        <div id="coordinates">
+          <table id="board"></table>
+        </div>
       </div>
 
       <div id="left">
@@ -25,7 +29,7 @@
         </div>
         <div id="buttonBank">
           <input type="button" value="Show Ships" id="show"/>
-          <input type="button" value="Reset/New Game" id="reset"/>
+          <input type="button" value="New Game" id="reset"/>
         </div>
       </div>
 
@@ -33,7 +37,16 @@
         <div id="console">
           <div id="consoleWindow">
             <h3>Command Terminal</h3>
-            <div id="consoleText"></div>
+            <div id="consoleText">
+              <span id="str1">Initializing...</span>
+              <span id="str2">Success.</span><br>
+              <span id="str3">Connecting to TDC...</span>
+              <span id="str4">Success.</span><br>
+              <span id="str5">Weapons Systems: </span>
+              <span id="str6">Online</span><br><br>
+              <span class="objblink" id="str7">Awaiting coodinates...</span><br><br>
+            </div>
+            <input type="text" value="" placeholder="Awaiting Coodinates" id="consoleInput">
           </div>
         </div>
         <div id="torpedoBank">
