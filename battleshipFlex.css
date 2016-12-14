@@ -2,6 +2,11 @@ h1, h2, h3, h4, input, #consoleText {
   font-family: 'Press Start 2P', cursive;
 }
 
+h2, h3, h4 {
+  color: white;
+  text-shadow: 2px 2px #000000;
+}
+
 h1 {
   font-size: 48px;
   color: #234486;
@@ -12,8 +17,6 @@ h1 {
 h2 {
   font-size: 12px;
   text-align: center;
-  color: white;
-  text-shadow: 2px 2px #000000;
 }
 
 h3 {
@@ -93,17 +96,6 @@ td .content {
   border-radius: 80px;
 }
 
-/*#coordinates {
-  height: 100%;
-  width: 100%;
-  margin: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url(img/gridlines.png);
-  background-size: 100% 100%;
-}*/
-
 #left {
   order: 0;
   flex-basis: 24%;
@@ -162,10 +154,24 @@ td .content {
   flex-grow: 30;
   line-height: 150%;
   padding: 10px;
+  max-height: 100%;
+  overflow-y: scroll;
 }
 
-#str7 {
+#consoleText::-webkit-scrollbar {
+  width: 12px;
+  -webkit-scrollbar-button: end;
+}
 
+#consoleText::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(120,120,120,0.3);
+  border-radius: 10px;
+}
+
+#consoleText::-webkit-scrollbar-thumb {
+  background-color: #234486;
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(120,120,120,0.5);
 }
 
 #consoleInput {
@@ -175,7 +181,7 @@ td .content {
   border: none;
   border-top: white 2px solid;
   padding: 5px;
-  flex-grow: 1;
+  /*flex-grow: 1;*/
 }
 
 #consoleInput,
@@ -206,11 +212,12 @@ textarea::-webkit-input-placeholder {
   max-height: 80%;
 }
 
-#show, #reset {
+#show, #newGame {
   font-size: 24px;
   margin: 20px auto;
   display: block;
-  color: #fff;
+  color: white;
+  text-shadow: 4px 4px #000000;
   background-color: #234486;
   padding: 20px;
   box-shadow: 5px 5px black;
@@ -223,10 +230,12 @@ textarea::-webkit-input-placeholder {
   background-image: url('img/torpedo.png');
   background-repeat: no-repeat;
   background-size: cover;
+  cursor: not-allowed;
  }
 
 .miss {
  background-color: red;
+ cursor: not-allowed;
 }
 
 .torpedoImg {

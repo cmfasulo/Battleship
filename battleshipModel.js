@@ -52,7 +52,7 @@ function addShip(ship, shipLength) {
     while (!validPlacement) {
       var orientation = Math.round(Math.random()); //0 = horizontal, 1 = vertical
 
-      if (orientation = 0) {
+      if (orientation === 0) {
         var rowStart = Math.floor(Math.random()*(rows));
         var columnStart = Math.floor(Math.random()*(columns - shipLength));
       } else {

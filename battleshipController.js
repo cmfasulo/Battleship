@@ -22,7 +22,11 @@ $(document).ready(function() {
 
   $("#consoleInput").keypress(function (e) {
     if (e.which == 13) {
-      if (torpedoCount > 0) {
+      if ($(this).val() === "show") {
+        showShips();
+        $("#consoleText").append("Cheater.");
+      } else if (torpedoCount > 0) {
+        playerClick();
         checkHit(board, $(this).val());
         $("#numTorpedos").text(torpedoCount);
         torpedoShelf();
@@ -41,12 +45,15 @@ $(document).ready(function() {
   });
 
   //resets the game
-  $("#reset").on("click", function() {
+  $("#newGame").on("click", function() {
     $("table").empty();
-    board = createBoard(rows, columns, "O")
+    $("#consoleText").empty();
 
-    makeTable();
-    placeShips();
+    initialize();
+    makeTable(); //creates a table/board
+
+    board = createBoard(rows, columns, 0);
+    placeShips(); //places all ships on "board" in array (battleshipModel.js)
 
     torpedoCount = 25;
     torpedoShelf();
@@ -94,9 +101,9 @@ function initialize() {
 function makeTable() {
   var tableString = "";
   for (var i = 0; i < rows; i++) {
-    tableString += "<tr id='" + i + "'>" //creates opening tag and id for current row
+    tableString += "<tr id='" + String.fromCharCode(65 + i) + "'>" //creates opening tag and id for current row
     for (var j = 0; j < columns; j++) {
-      tableString += "<td id='" + i + j + "'><div class='content'></div></td>" //adds the current column to the string for the current row; moves onto the next column in the inner "for" loop
+      tableString += "<td class='tdStart' id='" + String.fromCharCode(65 + i) + j + "'><div class='content'></div></td>" //adds the current column to the string for the current row; moves onto the next column in the inner "for" loop
     }
     tableString += "</tr>"; //adds a closing tag for the current row; moves onto the next row in the outer "for" loop
   }
@@ -107,7 +114,7 @@ function makeTable() {
 function showShips() {
   for (var i = 0; i < rows; i++) {
     for (var j = 0; j < columns; j++) {
-      $("#" + i.toString() + j.toString()).text(board[i][j])
+      $("#" + String.fromCharCode(65 + i) + j.toString()).text(board[i][j]);
     }
   }
 }
@@ -120,15 +127,22 @@ function torpedoShelf() {
 }
 
 function checkHit(board, id) {
-  var rowNum = parseInt(id.slice(0, 1));
-  var columnNum = parseInt(id.slice(1,2));
-  console.log(parseInt(board[rowNum][columnNum]));
-
-  if (board[rowNum][columnNum] === 0) {
-    $("#" + id).addClass("miss");
-    $("#consoleText").append("Sector: " + id + " = MISS<br>");
+  if (id.length != 2 || !id.match(/[a-j]/i) || !id.slice(1,2).match(/[0-9]/)) {
+    $("#consoleText").append("Invalid Coordinate: '" + id + "'. Enter row (letter: A-J), followed by column (number: 0-9). i.e. 'C4'.<br><br>");
+    $("#consoleText").animate({ scrollTop: $("#consoleText").height() }, "slow");
   } else {
-    $("#" + id).addClass("hit");
-    $("#consoleText").append("Sector: " + id + " = HIT<br>");
+    var rowNum = id.slice(0, 1).toUpperCase().charCodeAt(0) - 65;
+    var columnNum = parseInt(id.slice(1,2));
+    console.log(parseInt(board[rowNum][columnNum]));
+
+    if (board[rowNum][columnNum] === 0) {
+      $("#" + id).addClass("miss");
+      $("#consoleText").append("Sector: " + id + " = MISS<br>");
+      $("#consoleText").animate({ scrollTop: $("#consoleText").height() }, "slow");
+    } else {
+      $("#" + id).addClass("hit");
+      $("#consoleText").append("Sector: " + id + " = HIT<br>");
+      $("#consoleText").animate({ scrollTop: $("#consoleText").height() }, "slow");
+    }
   }
 }
