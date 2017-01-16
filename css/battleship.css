@@ -31,20 +31,16 @@ table {
   margin: auto;
   text-align: center;
   table-layout: fixed;
-  background-image: url(img/gridlines.png);
+  background-image: url('../img/gridlines.png');
   background-size: 100% 100%;
   padding: 3%;
 }
-
-/*div {
-  border: 1px dashed black;
-}*/
 
 td {
   border: 2px solid black;
   width: 10%;
   position: relative;
-  cursor: url("img/crosshairs.png") 25 25, crosshair;
+  cursor: url('../img/crosshairs.png') 25 25, crosshair;
   background-color: rgba(120, 120, 120, 0.5);
 }
 
@@ -71,13 +67,13 @@ td .content {
 }
 
 #battleship, #torpedoBank {
-  background-image: url(img/plateHorizontal.png);
+  background-image: url('../img/plateHorizontal.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 
 #buttonBank, #console {
-  background-image: url(img/plateVertical.png);
+  background-image: url('../img/plateVertical.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -90,7 +86,7 @@ td .content {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(img/sonar.gif);
+  background-image: url('../img/sonar.gif');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   border-radius: 80px;
@@ -181,17 +177,14 @@ td .content {
   border: none;
   border-top: white 2px solid;
   padding: 5px;
-  /*flex-grow: 1;*/
 }
 
 #consoleInput,
 textarea {
     font-size: 12px;
     padding: 5px;
-
     color: #234486;
     text-shadow: 0px 0px 0px #000;
-    /*-webkit-text-fill-color: transparent;*/
 }
 
 #consoleInput::-webkit-input-placeholder,
@@ -222,12 +215,12 @@ textarea::-webkit-input-placeholder {
   padding: 20px;
   box-shadow: 5px 5px black;
   border-radius: 5px;
-  cursor: url("img/crosshairs.png") 25 25, crosshair;
+  cursor: url('../img/crosshairs.png') 25 25, crosshair;
 }
 
 .hit {
   background-color: gray;
-  background-image: url('img/torpedo.png');
+  background-image: url('../img/torpedo.png');
   background-repeat: no-repeat;
   background-size: cover;
   cursor: not-allowed;
