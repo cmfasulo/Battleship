@@ -1,17 +1,18 @@
 $(document).ready(function() {
-  initialize();
-  makeTable(); //creates a table/board
-  placeShips(); //places all ships on "board" in array (battleshipModel.js)
-  torpedoShelf(); //add torpedos to "torpedoShelf"
+  initialize(); // starts command terminal "loading" animation
+  makeTable(); // creates a table/board
+  placeShips(); // places all ships on "board" in array (battleshipModel.js)
+  torpedoShelf(); // add torpedo images to "torpedoShelf"
 
-  //assigns actions to player's click
+  // assigns actions to player's click
   $("td").on("click", function() {
 
+    // if there are still torpedos remaining, check for hit and update torpedo count
     if (torpedoCount > 0) {
-      playerClick(); //runs playerClick function from Model
+      playerClick(); // runs playerClick function from Model
       checkHit(board, $(this).attr('id'));
       $("#numTorpedos").text(torpedoCount);
-      torpedoShelf();
+      torpedoShelf(); // remove a torpedo image from the "shelf"
       $(this).off();
     } else {
       $("#consoleText").append("SORRY, YOU HAVE LOST THIS BATTLE");
@@ -20,6 +21,7 @@ $(document).ready(function() {
 
   });
 
+  // allow player to enter position coordinates in the psudo-terminal
   $("#consoleInput").keypress(function (e) {
     if (e.which == 13) {
       if ($(this).val() === "show") {
@@ -36,24 +38,25 @@ $(document).ready(function() {
         $("td").off();
       }
 
-      $(this).val('');
+      $(this).val(''); // clear input field after each submit
     }
   });
 
+  // debugging button to show all ships on the board
   $("#show").on("click", function() {
     showShips();
   });
 
-  //resets the game
+  // resets the game
   $("#newGame").on("click", function() {
     $("table").empty();
     $("#consoleText").empty();
 
     initialize();
-    makeTable(); //creates a table/board
+    makeTable();
 
-    board = createBoard(rows, columns, 0);
-    placeShips(); //places all ships on "board" in array (battleshipModel.js)
+    board = createBoard(rows, columns, fillCharacter);
+    placeShips();
 
     torpedoCount = 25;
     torpedoShelf();
@@ -68,6 +71,7 @@ $(document).ready(function() {
         $(this).off();
       } else {
         $("#consoleText").append("SORRY, YOU HAVE LOST THIS BATTLE");
+        $("#consoleText").animate({ scrollTop: $("#consoleText").height() }, "slow");
         $("td").off();
       }
 
@@ -79,6 +83,7 @@ $(document).ready(function() {
 
 });
 
+// creates text animations for the command terminal window
 function initialize() {
   $("#str1").toggle();
   $("#str2").toggle();
@@ -111,6 +116,7 @@ function makeTable() {
   $("table").append(tableString);
 }
 
+// debugging function to show ships on the board
 function showShips() {
   for (var i = 0; i < rows; i++) {
     for (var j = 0; j < columns; j++) {
@@ -127,20 +133,22 @@ function torpedoShelf() {
 }
 
 function checkHit(board, id) {
+  // check for valid input: 2 characeters, at least one case-insensitive letter, one number
   if (id.length != 2 || !id.match(/[a-j]/i) || !id.slice(1,2).match(/[0-9]/)) {
     $("#consoleText").append("Invalid Coordinate: '" + id + "'. Enter row (letter: A-J), followed by column (number: 0-9). i.e. 'C4'.<br><br>");
     $("#consoleText").animate({ scrollTop: $("#consoleText").height() }, "slow");
   } else {
-    var rowNum = id.slice(0, 1).toUpperCase().charCodeAt(0) - 65;
+    var rowNum = id.slice(0, 1).toUpperCase().charCodeAt(0) - 65; //convert letter to corresponding board row number
     var columnNum = parseInt(id.slice(1,2));
+    var selectId = "#" + id.slice(0, 1).toUpperCase() + columnNum;
     console.log(parseInt(board[rowNum][columnNum]));
 
-    if (board[rowNum][columnNum] === 0) {
-      $("#" + id).addClass("miss");
+    if (board[rowNum][columnNum] === 0) { // miss
+      $(selectId).addClass("miss");
       $("#consoleText").append("Sector: " + id + " = MISS<br>");
       $("#consoleText").animate({ scrollTop: $("#consoleText").height() }, "slow");
     } else {
-      $("#" + id).addClass("hit");
+      $(selectId).addClass("hit"); // hit
       $("#consoleText").append("Sector: " + id + " = HIT<br>");
       $("#consoleText").animate({ scrollTop: $("#consoleText").height() }, "slow");
     }
