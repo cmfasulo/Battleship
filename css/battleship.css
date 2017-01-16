@@ -1,4 +1,4 @@
-h1, h2, h3, h4, input, #consoleText {
+h1, h2, h3, h4, input, a, #consoleText {
   font-family: 'Press Start 2P', cursive;
 }
 
@@ -56,6 +56,10 @@ td .content {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+a {
+  text-decoration: none;
 }
 
 #container {
@@ -205,7 +209,7 @@ textarea::-webkit-input-placeholder {
   max-height: 80%;
 }
 
-#show, #newGame {
+#show, #newGame, #github {
   font-size: 24px;
   margin: 20px auto;
   display: block;

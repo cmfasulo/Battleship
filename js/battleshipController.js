@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  alert("Ahoy matey! To play, click the grid squares or enter the coordinates in the Command Terminal. Good Luck!");
   initialize(); // starts command terminal "loading" animation
   makeTable(); // creates a table/board
   placeShips(); // places all ships on "board" in array (battleshipModel.js)
